@@ -93,6 +93,40 @@ def calcular_a3():
     
     return delta_p, ea_propagado, error_porcentual, es_confiable
 
+def calcular_a4():
+    anios, nombres_meses, precios = obtener_datos_sii()
+    M = 1000000.0
+    
+    precios_aprox = redondear_dos_cifras(precios)
+    
+    idx_min = np.argmin(precios)
+    idx_max = np.argmax(precios)
+    
+    p_min_real = precios[idx_min]
+    p_max_real = precios[idx_max]
+    
+    p_min_aprox = precios_aprox[idx_min]
+    p_max_aprox = precios_aprox[idx_max]
+    
+    er_min = (abs(p_min_real - p_min_aprox) / p_min_real) * 100
+    er_max = (abs(p_max_real - p_max_aprox) / p_max_real) * 100
+    
+    # Simulacion completa
+    
+    usd = M / p_min_real
+    pesos_final =  usd * p_max_aprox
+    ganancia = pesos_final - M
+    rentabilidad = (ganancia / M) * 100
+    
+    er_total = er_min + er_max
+    ea_ganancia = (er_total / 100) * abs(pesos_final)
+    
+    #La conclusion sobrevive al error?
+    
+    sobrevive = ganancia > ea_ganancia
+    
+    return ganancia, ea_ganancia, rentabilidad, sobrevive
+    
         
 if __name__ == "__main__":
     
