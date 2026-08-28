@@ -28,5 +28,38 @@ def calcular_errores_a1():
 
     return precios_aprox, error_absoluto, error_relativo
 
+def calcular_a2(idx_compra, idx_venta):
+    anios, nombres_meses, precios = obtener_datos_sii()
+    
+    M = 1000000.0
+    
+    precios_aprox = redondear_dos_cifras(precios)
+    
+    p_compra_real = precios[idx_compra]
+    p_compra_aprox = precios_aprox[idx_compra]
+    
+    p_venta_real = precios[idx_venta]
+    p_venta_aprox = precios_aprox[idx_venta]
+    
+    #errores relativos de representacion
+    er_compra =(abs(p_compra_real - p_compra_aprox) /  p_compra_real) * 100
+    er_venta = (abs(p_venta_real - p_venta_aprox) / p_venta_real) * 100
+    
+    # Operacion con valores aproximados, es decir como lo haria la maquina con dos cifras
+    usd_comprados = M / p_compra_aprox
+    pesos_final = usd_comprados * p_venta_aprox
+    ganancia = pesos_final - M
+    
+    # propagacion de errores
+    # multiplicacion y division los errores relativos se suman
+    er_total_operacion = er_compra + er_venta
+    
+    # Convertir error relativo total a error absoluto en pesos para la ganancia
+    ea_ganancia = (er_total_operacion / 100) * abs(pesos_final)
+    
+    return ganancia, ea_ganancia, er_total_operacion
+    
+    
+
 if __name__ == "__main__":
-    calcular_errores_a1()
+    calcular_a2(2, 6)

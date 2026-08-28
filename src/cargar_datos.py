@@ -2,7 +2,7 @@ import numpy as np
 
 def obtener_datos_sii():
 
-    archivo = "dolar_observado_sii_2022_2025.csv"
+    archivo = "data/dolar_observado_sii_2022_2025.csv"
 
     datos_crudos = np.genfromtxt(archivo, delimiter=',', skip_header=1, dtype=str)
 
