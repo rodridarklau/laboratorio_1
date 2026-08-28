@@ -1,4 +1,7 @@
 import numpy as np
+import os
+import matplotlib.pyplot as plt
+from cargar_datos import obtener_datos_sii
 
 def mantisa_corta_b1():
     
@@ -39,6 +42,34 @@ def cancelacion_maquina_b4():
     print(f"Diferencia teórica exacta : {valor_teorico:.6f}")
     print(f"Resta en float32          : {resta_f32:.8f}")
     print(f"Resta en float64          : {resta_f64:.16f}")
+
+def ejercicio_b2_ida_vuelta():
+    print("B2: La ida y vuelta que no vuelve (float32 vs float64)")
+    
+    #Obtener los datos del dataset
+    anios, nombres_meses, precios = obtener_datos_sii()
+    M = 1000000.0  # $1.000.000 CLP de capital inicial
+
+    # Simulación en presicion doble
+    usd_f64 = M / precios
+    clp_final_f64 = usd_f64 * precios
+    deriva_f64 = clp_final_f64 - M
+
+    # Simulación en presicion simple
+    M_f32 = np.float32(M)
+    precios_f32 = precios.astype(np.float32)
+    usd_f32 = M_f32 / precios_f32
+    clp_final_f32 = usd_f32 * precios_f32
+    deriva_f32 = clp_final_f32 - M_f32
+
+    # Maxima perdida o ganacia en ambos formatos
+    max_deriva_32 = np.max(np.abs(deriva_f32))
+    max_deriva_64 = np.max(np.abs(deriva_f64))
+    print(f"Máxima deriva en float32 : {max_deriva_32:.6f} CLP")
+    print(f"Máxima deriva en float64 : {max_deriva_64:.16e} CLP")
+
+    return deriva_f32, deriva_f64
 if __name__ == "__main__":
     mantisa_corta_b1()
     cancelacion_maquina_b4()
+    ejercicio_b2_ida_vuelta()
