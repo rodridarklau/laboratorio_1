@@ -58,8 +58,40 @@ def calcular_a2(idx_compra, idx_venta):
     ea_ganancia = (er_total_operacion / 100) * abs(pesos_final)
     
     return ganancia, ea_ganancia, er_total_operacion
+
+def calcular_a3():
+    anios, nombres_meses, precios = obtener_datos_sii()
+    
+    filtro_diciembre_2022 = (anios == 2022) & (nombres_meses == 'Diciembre')
+    filtro_diciembre_2023 = (anios == 2023) & (nombres_meses == 'Diciembre')
+    
+    p22 = precios[filtro_diciembre_2022]
+    p23 = precios[filtro_diciembre_2023]
+    
+    #funcion para el redondeo a 3 cifras 
+    def redondear_3_cifras(val):
+        mag = np.floor(np.log10(val))
+        factor = 10**(2-mag)
+        return np.round(val * factor) / factor
+    
+    p22_aprox = redondear_dos_cifras(p22)
+    p23_aprox = redondear_dos_cifras(p23)
     
     
+    #errores absolutos individuales
+    ea22 = abs(p22 - p22_aprox)
+    ea23 = abs(p23 - p23_aprox)
+    
+    #La variacion de valores aproximados
+    delta_p = p23_aprox - p22_aprox
+    
+    #Propagacion de error en la resta
+    ea_propagado = ea22 + ea23
+    error_porcentual = (ea_propagado / abs(p23 - p22)) * 100
+    # booleano que nos dice si realmente si la diferencia es mas grande que el margen de error
+    es_confiable = abs(delta_p) > ea_propagado
+    
+    return delta_p, ea_propagado, error_porcentual, es_confiable
 
 if __name__ == "__main__":
-    calcular_a2(2, 6)
+    pass
