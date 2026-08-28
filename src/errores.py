@@ -93,5 +93,7 @@ def calcular_a3():
     
     return delta_p, ea_propagado, error_porcentual, es_confiable
 
+        
 if __name__ == "__main__":
+    
     pass
