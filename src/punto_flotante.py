@@ -68,6 +68,28 @@ def ejercicio_b2_ida_vuelta():
     print(f"Máxima deriva en float32 : {max_deriva_32:.6f} CLP")
     print(f"Máxima deriva en float64 : {max_deriva_64:.16e} CLP")
 
+    #grafico
+    os.makedirs("graficos", exist_ok=True)
+    meses_indices = np.arange(len(precios))
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(meses_indices, deriva_f32, marker='o', color='tab:red', label='float32 (Precisión simple)')
+    plt.plot(meses_indices, deriva_f64, marker='s', color='tab:blue', label='float64 (Precisión doble)')
+    plt.axhline(0, color='black', linestyle='--', linewidth=0.8)
+    
+    plt.title("Gráfico 5: Deriva de Ida y Vuelta ($M = 1.000.000$ CLP)")
+    plt.xlabel("Meses consecutivos (2022 - 2025)")
+    plt.ylabel("Deriva / Error residual (CLP)")
+    plt.legend()
+    plt.grid(True, linestyle=':', alpha=0.6)
+    plt.tight_layout()
+
+    ruta_guardado = "graficos/5_deriva_ida_vuelta.png"
+    plt.savefig(ruta_guardado, dpi=300)
+    plt.close()
+
+
+
     return deriva_f32, deriva_f64
 if __name__ == "__main__":
     mantisa_corta_b1()
