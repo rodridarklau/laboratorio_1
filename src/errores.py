@@ -20,13 +20,9 @@ def calcular_errores_a1():
     
     precios_aprox = redondear_dos_cifras(precios)
     error_absoluto = np.abs(precios - precios_aprox)
-    error_relativo = (error_absoluto / precios) * 100
-    
-    #guardamos el indice del peor error relativo
-    indice_max_error = np.argmax(error_relativo)
-    
+    error_relativo = (error_absoluto / precios) * 100    
 
-    return precios_aprox, error_absoluto, error_relativo
+    return error_relativo
 
 def calcular_a2(idx_compra, idx_venta):
     anios, nombres_meses, precios = obtener_datos_sii()
