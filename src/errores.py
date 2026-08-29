@@ -61,8 +61,8 @@ def calcular_a3():
     filtro_diciembre_2022 = (anios == 2022) & (nombres_meses == 'Diciembre')
     filtro_diciembre_2023 = (anios == 2023) & (nombres_meses == 'Diciembre')
     
-    p22 = precios[filtro_diciembre_2022]
-    p23 = precios[filtro_diciembre_2023]
+    p22 = float(precios[filtro_diciembre_2022][0])
+    p23 = float(precios[filtro_diciembre_2023][0])
     
     #funcion para el redondeo a 3 cifras 
     def redondear_3_cifras(val):
@@ -70,8 +70,8 @@ def calcular_a3():
         factor = 10**(2-mag)
         return np.round(val * factor) / factor
     
-    p22_aprox = redondear_dos_cifras(p22)
-    p23_aprox = redondear_dos_cifras(p23)
+    p22_aprox = redondear_3_cifras(p22)
+    p23_aprox = redondear_3_cifras(p23)
     
     
     #errores absolutos individuales
@@ -82,10 +82,10 @@ def calcular_a3():
     delta_p = p23_aprox - p22_aprox
     
     #Propagacion de error en la resta
-    ea_propagado = ea22 + ea23
+    ea_propagado = float(ea22 + ea23)
     error_porcentual = (ea_propagado / abs(p23 - p22)) * 100
     # booleano que nos dice si realmente si la diferencia es mas grande que el margen de error
-    es_confiable = abs(delta_p) > ea_propagado
+    es_confiable = bool(abs(delta_p) > ea_propagado)
     
     return delta_p, ea_propagado, error_porcentual, es_confiable
 

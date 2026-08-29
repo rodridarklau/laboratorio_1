@@ -22,7 +22,7 @@ def calcular_a4():
         
         er_delta = (ea_delta / abs(delta_real)) * 100
         
-        resultados.append((y, delta_real, ea_delta, er_delta))
+        resultados.append((int(y), float(delta_real[0]), float(ea_delta[0]), float(er_delta[0])))
     
     resultados_ordenados = sorted(resultados, key=lambda x: x[3])
     # retornamos los siguiente (el año, variacion real, error absoluto propagado, error relativo procentual)
