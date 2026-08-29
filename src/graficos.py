@@ -47,36 +47,6 @@ plt.tight_layout()
 plt.savefig('graficos/3_error_representacion.png', dpi=300)
 plt.close()
 
-<<<<<<< HEAD
-# GRÁFICO 5: Deriva de ida y vuelta (float32 vs float64)
-precios_b2, deriva_f32, deriva_f64, max_d32, max_d64 = (
-    ejercicio_b2_ida_vuelta()
-)
-plt.figure(figsize=(10, 5))
-plt.plot(
-    eje_temporal,
-    deriva_f32,
-    marker="o",
-    color="tab:red",
-    label="float32 (Precisión simple)",
-)
-plt.plot(
-    eje_temporal,
-    deriva_f64,
-    marker="s",
-    color="tab:blue",
-    label="float64 (Precisión doble)",
-)
-plt.axhline(0, color="black", linestyle="--", linewidth=0.8)
-plt.title("5. Deriva de Ida y Vuelta ($M = 1.000.000$ CLP)")
-plt.xlabel("Meses (Secuenciales)")
-plt.ylabel("Deriva / Error residual (CLP)")
-plt.legend()
-plt.grid(True, linestyle="--", alpha=0.6)
-plt.tight_layout()
-plt.savefig("graficos/5_deriva_ida_vuelta.png", dpi=300)
-plt.close()
-=======
 # GRÁFICO 4: Rentabilidad comprando en el mínimo histórico
 
 M = 1000000.0
@@ -111,4 +81,31 @@ plt.tight_layout()
 plt.savefig('graficos/rentabilidad_minimo.png', dpi=300)
 plt.close()
 
->>>>>>> dae846da2fcb295989ae6fd3964c38c32fdead9c
+# GRÁFICO 5: Deriva de ida y vuelta (float32 vs float64)
+precios_b2, deriva_f32, deriva_f64, max_d32, max_d64 = (
+    ejercicio_b2_ida_vuelta()
+)
+plt.figure(figsize=(10, 5))
+plt.plot(
+    eje_temporal,
+    deriva_f32,
+    marker="o",
+    color="tab:red",
+    label="float32 (Precisión simple)",
+)
+plt.plot(
+    eje_temporal,
+    deriva_f64,
+    marker="s",
+    color="tab:blue",
+    label="float64 (Precisión doble)",
+)
+plt.axhline(0, color="black", linestyle="--", linewidth=0.8)
+plt.title("5. Deriva de Ida y Vuelta ($M = 1.000.000$ CLP)")
+plt.xlabel("Meses (Secuenciales)")
+plt.ylabel("Deriva / Error residual (CLP)")
+plt.legend()
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.tight_layout()
+plt.savefig("graficos/5_deriva_ida_vuelta.png", dpi=300)
+plt.close()
