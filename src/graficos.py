@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from cargar_datos import obtener_datos_sii
 from errores import redondear_dos_cifras
+from punto_flotante import ejercicio_b2_ida_vuelta
 
 anios, nombres_meses, precios = obtener_datos_sii()
 n_total = len(precios)
@@ -29,6 +30,6 @@ plt.xlabel('Meses (Secuenciales)')
 plt.ylabel('ΔP (CLP)')
 plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
-plt.savefig('graficos/1_variacion_mes_a_mes.png', dpi=300)
+plt.savefig('graficos/2_variacion_mes_a_mes.png', dpi=300)
 plt.close()
 
