@@ -47,3 +47,37 @@ plt.tight_layout()
 plt.savefig('graficos/3_error_representacion.png', dpi=300)
 plt.close()
 
+# GRÁFICO 4: Rentabilidad comprando en el mínimo histórico
+
+M = 1000000.0
+idx_min = np.argmin(precios)
+p_min_aprox = precios_aprox[idx_min]
+er_min = (abs(precios[idx_min] - p_min_aprox) / precios[idx_min]) * 100
+
+usd_comprados = M / p_min_aprox
+rentabilidades = []
+errores_rentabilidad = []
+
+for i in range(n_total):
+    p_venta_aprox = precios_aprox[i]
+    pesos_final = usd_comprados * p_venta_aprox
+    ganancia = pesos_final - M
+    rent = (ganancia / M) * 100
+    rentabilidades.append(rent)
+    
+    # Propagación de error para la rentabilidad
+    er_venta = (abs(precios[i] - p_venta_aprox) / precios[i]) * 100
+    er_total = er_min + er_venta
+    errores_rentabilidad.append(er_total)
+
+plt.figure(figsize=(10, 5))
+plt.errorbar(eje_temporal, rentabilidades, yerr=errores_rentabilidad, fmt='-o', color='teal', ecolor='salmon', elinewidth=1, capsize=2, markersize=3)
+plt.axhline(0, color='black', linestyle='--', linewidth=0.8)
+plt.title('4. Rentabilidad Comprando en el Mínimo Global (con Error Propagado)')
+plt.xlabel('Meses (Secuenciales)')
+plt.ylabel('Rentabilidad (%)')
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.savefig('graficos/rentabilidad_minimo.png', dpi=300)
+plt.close()
+
