@@ -29,5 +29,6 @@ plt.xlabel('Meses (Secuenciales)')
 plt.ylabel('ΔP (CLP)')
 plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
-plt.savefig('graficos/2_variacion_mes_a_mes.png', dpi=300)
+plt.savefig('graficos/1_variacion_mes_a_mes.png', dpi=300)
 plt.close()
+
