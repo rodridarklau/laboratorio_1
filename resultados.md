@@ -26,8 +26,8 @@
 
 ### A5. La Mejor Jugada Global (Óptimo Histórico)
 - **Compra:** Febrero 2023 | **Venta:** Enero 2025
-- **Ganancia Neta:** $252,724.68 CLP (**Rentabilidad: 25.27%**)
-- **Error Propagado:** ± $3,681.96 CLP
+- **Ganancia Neta:** $250,000.00 CLP (**Rentabilidad: 25.00%**)
+- **Error Propagado:** ± $3,673.95 CLP
 - **¿Sobrevive al error?:** SÍ. La ganancia supera holgadamente a la incertidumbre.
 
 ---

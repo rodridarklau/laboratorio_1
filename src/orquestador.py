@@ -1,7 +1,12 @@
+import os
+import sys
+import csv
 import numpy as np
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from cargar_datos import obtener_datos_sii
 from anualidad import calcular_a4
-from errores import calcular_errores_a1, calcular_a2, calcular_a3, calcular_a5
+from errores import calcular_errores_a1, calcular_a2, calcular_a3, calcular_a5, redondear_dos_cifras
 from punto_flotante import mantisa_corta_b1, cancelacion_maquina_b4, ejercicio_b2_ida_vuelta
 
 def generar_resultados_md():
@@ -78,8 +83,46 @@ def generar_resultados_md():
 - **Máxima desviación (`float64`):** {max_d64:.4f} CLP
 """
 
-    with open("resultados.md", "w", encoding="utf-8") as f:
+    ruta_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_md = os.path.join(ruta_base, "resultados.md")
+    with open(ruta_md, "w", encoding="utf-8") as f:
         f.write(markdown_content)
+
+def generar_csv_evaluacion_errores():
+    ruta_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_csv = os.path.join(ruta_base, "data", "evaluacion_errores.csv")
+    
+    anios, nombres_meses, precios = obtener_datos_sii()
+    
+    # Pares anuales A4
+    res_a4 = calcular_a4()
+    
+    # Par A2
+    ganancia_a2, ea_ganancia_a2, er_total_a2 = calcular_a2(2, 6)
+    
+    # Par A3
+    delta_p_a3, ea_propagado_a3, error_porcentual_a3, _ = calcular_a3()
+    
+    # Par A5
+    ganancia_a5, ea_ganancia_a5, rentabilidad_a5, _ = calcular_a5()
+    
+    with open(ruta_csv, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["seccion", "tipo_evaluacion", "punto_inicial", "punto_final", "valor_real", "valor_aprox", "error_absoluto_propagado", "error_relativo_porcentual", "observacion"])
+        
+        # Anualidades A4
+        for anio, delta_real, ea_delta, er_delta in res_a4:
+            writer.writerow(["A4", f"Anualidad {anio}", f"Enero {anio}", f"Diciembre {anio}", f"{delta_real:.2f}", "-", f"{ea_delta:.2f}", f"{er_delta:.2f}%", "Variacion anual"])
+            
+        # Par A2
+        writer.writerow(["A2", "Compra-Venta Ejemplo", "Marzo 2022", "Julio 2022", "187500.00", "187500.00", f"{ea_ganancia_a2:.2f}", f"{er_total_a2:.4f}%", "Capital $1.000.000 CLP"])
+        
+        # Par A3
+        writer.writerow(["A3", "Cancelacion (3 cifras)", "Diciembre 2022", "Diciembre 2023", "-0.99", f"{delta_p_a3:.2f}", f"{ea_propagado_a3:.4f}", f"{error_porcentual_a3:.2f}%", "Efecto cancelacion"])
+        
+        # Par A5
+        writer.writerow(["A5", "Mejor Compra-Venta Global", "Febrero 2023", "Enero 2025", "253676.75", f"{ganancia_a5:.2f}", f"{ea_ganancia_a5:.2f}", f"{(ea_ganancia_a5/ganancia_a5)*100:.2f}%", "Optimo historico"])
 
 if __name__ == "__main__":
     generar_resultados_md()
+    generar_csv_evaluacion_errores()

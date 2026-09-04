@@ -1,0 +1,8 @@
+seccion,tipo_evaluacion,punto_inicial,punto_final,valor_real,valor_aprox,error_absoluto_propagado,error_relativo_porcentual,observacion
+A4,Anualidad 2025,Enero 2025,Diciembre 2025,-84.60,-,4.60,5.44%,Variacion anual
+A4,Anualidad 2024,Enero 2024,Diciembre 2024,74.31,-,4.31,5.80%,Variacion anual
+A4,Anualidad 2022,Enero 2022,Diciembre 2022,53.61,-,6.39,11.92%,Variacion anual
+A4,Anualidad 2023,Enero 2023,Diciembre 2023,48.33,-,8.33,17.24%,Variacion anual
+A2,Compra-Venta Ejemplo,Marzo 2022,Julio 2022,187500.00,187500.00,5823.02,0.4904%,Capital $1.000.000 CLP
+A3,Cancelacion (3 cifras),Diciembre 2022,Diciembre 2023,-0.99,-1.00,0.6700,67.68%,Efecto cancelacion
+A5,Mejor Compra-Venta Global,Febrero 2023,Enero 2025,253676.75,250000.00,3673.95,1.47%,Optimo historico
