@@ -1,4 +1,8 @@
+import os
+import sys
 import numpy as np
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from cargar_datos import obtener_datos_sii
 from errores import redondear_dos_cifras
 

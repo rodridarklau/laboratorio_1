@@ -1,4 +1,8 @@
+import os
+import sys
 import numpy as np
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from cargar_datos import obtener_datos_sii
 
 
@@ -109,8 +113,8 @@ def calcular_a5():
     
     # Simulacion completa
     
-    usd = M / p_min_real
-    pesos_final =  usd * p_max_aprox
+    usd = M / p_min_aprox
+    pesos_final = usd * p_max_aprox
     ganancia = pesos_final - M
     rentabilidad = (ganancia / M) * 100
     

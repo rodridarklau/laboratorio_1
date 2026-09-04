@@ -1,8 +1,12 @@
+import os
 import numpy as np
 
 def obtener_datos_sii():
 
-    archivo = "data/dolar_observado_sii_2022_2025.csv"
+    ruta_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    archivo = os.path.join(ruta_base, "data", "dolar_observado_sii_2022_2025.csv")
+    if not os.path.exists(archivo):
+        archivo = "data/dolar_observado_sii_2022_2025.csv"
 
     datos_crudos = np.genfromtxt(archivo, delimiter=',', skip_header=1, dtype=str)
 
